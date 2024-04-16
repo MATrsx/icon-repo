@@ -3,7 +3,7 @@ import json
 
 def create_json_from_svg_folder(folder_path, output_json_path):
     # Ordnername (festgelegt)
-    folder_name = "table"
+    folder_name = "tabler"
 
     # Erstelle ein leeres Wörterbuch, um die Ergebnisse zu speichern
     result_dict = {}
@@ -15,8 +15,8 @@ def create_json_from_svg_folder(folder_path, output_json_path):
             icon_name = os.path.splitext(filename)[0]
 
             # Erstelle den Schlüssel-Wert-Paar im gewünschten Format
-            key = f"{folder_name}-{icon_name}"
-            value = f"{folder_name}/filled/{filename}"
+            key = f"{folder_name}-outline-{icon_name}"
+            value = f"{folder_name}/outline/{filename}"
             result_dict[key] = value
 
     # Speichere das Wörterbuch als JSON-Datei
@@ -26,6 +26,6 @@ def create_json_from_svg_folder(folder_path, output_json_path):
     print("JSON-Datei wurde erfolgreich erstellt: output.json")
 
 # Beispielaufruf mit einem Ordnerpfad
-folder_path = "C:/Users/EMGZ2E/Git-Repositories/icon-repo/Icons/table/filled"
+folder_path = "C:/Users/EMGZ2E/Git-Repositories/icon-repo/Icons/tabler/outline"
 output_json_path = "C:/Users/EMGZ2E/Git-Repositories/icon-repo/Icons/output.json"
 create_json_from_svg_folder(folder_path, output_json_path)
