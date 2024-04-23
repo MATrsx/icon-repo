@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 
 def create_json_from_svg_folder(folder_path, output_json_path):
     # Ordnername (festgelegt)
@@ -49,10 +50,31 @@ def create_json_from_png_folder(base_path, output_json_path):
 
     print("JSON-Datei wurde erfolgreich erstellt:", output_json_path)
 
+def delete_folders(base_path):
+    # Durchsuche den Basispfad nach "3D"-Ordnern
+    for root, dirs, files in os.walk(base_path):
+        if "3D" in dirs:
+            icon_folder = os.path.dirname(os.path.join(root, "3D"))
+            # Durchsuche das Verzeichnis des "3D"-Ordners nach "Flat" und "High Contrast"
+            for folder in ["Flat", "High Contrast"]:
+                folder_path = os.path.join(icon_folder, folder)
+                if os.path.exists(folder_path):
+                    try:
+                        shutil.rmtree(folder_path)
+                        print(f"Ordner '{folder}' im Icon-Ordner '{icon_folder}' wurde erfolgreich gelöscht.")
+                    except Exception as e:
+                        print(f"Fehler beim Löschen des Ordners '{folder}' im Icon-Ordner '{icon_folder}': {e}")
+                else:
+                    print(f"Der Ordner '{folder}' im Icon-Ordner '{icon_folder}' existiert nicht.")
+
 # Beispielaufruf mit einem Basispfad
-base_path = "C:/Users/milan/Documents/Programming/PxC-Projects/icon-repo/Icons/fluentemoji"
-output_json_path = "C:/Users/milan/Documents/Programming/PxC-Projects/icon-repo/Icons/output.json"
-create_json_from_png_folder(base_path, output_json_path)
+base_path = r"C:\Users\milan\Documents\Programming\PxC-Projects\icon-repo\Icons\fluentemoji"
+delete_folders(base_path)
+
+# Beispielaufruf mit einem Basispfad
+# base_path = "C:/Users/milan/Documents/Programming/PxC-Projects/icon-repo/Icons/fluentemoji"
+# output_json_path = "C:/Users/milan/Documents/Programming/PxC-Projects/icon-repo/Icons/output.json"
+# create_json_from_png_folder(base_path, output_json_path)
 
 # Beispielaufruf mit einem Ordnerpfad
 # folder_path = "C:/Users/EMGZ2E/Git-Repositories/icon-repo/Icons/tabler/outline"
